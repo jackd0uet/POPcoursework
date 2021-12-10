@@ -84,6 +84,18 @@ print("Creating a stock with 10 units Navigation system, price 99.99 each, item 
 nav = NavSys("NS101", 10, 99.99, "TomTom")
 print(nav)
 
+nav.increaseStock(10)
+print(nav)
+
+nav.sellStock(2)
+print(nav)
+
+nav.setPrice(100.99)
+print(nav)
+
+nav.increaseStock(0)
+
+
 
 
 
