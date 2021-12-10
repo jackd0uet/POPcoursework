@@ -11,61 +11,83 @@ class StockItem():
 
     def __init__(self, stockCode = 0, quantity = 0, price = 0.0):
 
-        self.stockCode = stockCode
-        self.quantity = quantity
-        self.price = price
+        self.__stockCode = stockCode
+        self.__quantity = quantity
+        self.__price = price
 
     def getStockCode(self):
-        print("The stock code of this item is: %d" %(self.stockCode))
+        return self.__stockCode
 
     def getQuantity(self):
-        print("The quantity of this item is: %d" %(self.quantity))
+        return self.__quantity
 
     def setQuantity(self,value):
-        self.quantity = value
+        self.__quantity = value
 
     def getPriceNoVAT(self):
-        print("The price of this item without VAT is: %d" %(self.price))
+        return self.__price
 
     def setPrice(self,value):
-        self.price = value
+        self.__price = value
 
     def getStockName(self):
-        print("Unknown stock name.")
+        return "Unknown stock name."
 
     def getStockDescription(self):
-        print("Unknown stock description.")
+        return "Unknown stock description."
 
     def increaseStock(self,value):
         if value < 1:
             print("ERROR: Value entered is too low, please try again with a value of one or higher.")
-        if self.quantity + value > 100:
+        if self.__quantity + value > 100:
             print("ERROR: Cannot have stock over 100 for this item.")
         else:
-            self.quantity = self.quantity + value
+            self.__quantity = self.__quantity + value
 
     def sellStock(self,value):
         if value < 1:
             print("ERROR: Cannot sell less than one of an item.")
-        if value <= self.quantity:
-            self.quantity = self.quantity - value
-            print("True")
+        if value <= self.__quantity:
+            self.__quantity = self.__quantity - value
+            return "True"
         else:
-            print("False")
+            return "False"
 
     def getVAT(self):
-        print("17.5")
+        return "17.5"
 
     def getPriceWithVAT(self):
-        print("The price of this item with VAT is: %.2f" % (self.price +(0.175 * self.price)))
+        x = self.__price +(0.175 * self.__price)
+        x = round(x, 2)
+        return x
         
     def __str__(self):
         #add stock_name and stock_description once defined
-        return self.stockCode, self.quantity, self.price
+        return "\nPrinting item stock information: " "\nStock Category: " + self.stockCategory + "\nStock Type: " + self.getStockName() + "\nDescription: " + self.getStockDescription() + "\nStockCode: " + str(self.getStockCode()) + "\nPriceWithoutVat: " +str(self.getPriceNoVAT()) + "\nPriceWithVat: " +str(self.getPriceWithVAT()) + "\nTotal units in stock: " +str(self.getQuantity()) + "\n"
 
-item1 = StockItem(999, 50, 6.0)
 
-print(item1.__str__())
+
+
+
+print("Creating a stock with 10 units Unknown item, price 99.99 each, and item code W101")
+item1 = StockItem("W101", 10, 99.99)
+
+print(item1)
+
+print("Increasing 10 more units")
+item1.increaseStock(10)
+print(item1)
+
+print("Sold 2 items")
+item1.sellStock(2)
+print(item1)
+
+print("Set new price 100.99 per unit")
+item1.setPrice(100.99)
+print(item1)
+
+print("Increasing 0 more units")
+item1.increaseStock(0)
 
 
 
