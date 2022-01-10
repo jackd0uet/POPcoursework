@@ -79,62 +79,78 @@ class NavSys(StockItem):
     def __str__(self):
         return super().__str__() + "Brand: " + self.__navSysBrand + "\n"
 
-class Tyres(StockItem):
-    def __init__(self,stockCode,quantity,price,tyreBrand):
-        self.__tyreBrand = tyreBrand
+class Speaker(StockItem):
+    def __init__(self, stockCode, quantity, price, speakerBrand):
+        self.__speakerBrand = speakerBrand
         super().__init__(stockCode,quantity,price)
 
     def getStockName(self):
-        return "Tyre"
+        return "Speaker"
 
     def getStockDescription(self):
-        return "All Terrain"
+        return "Surround Sound"
 
     def __str__(self):
-        return super().__str__() + "Brand: " + self.__tyreBrand + "\n"
+        return super().__str__() + "Brand: " + self.__speakerBrand + "\n"
 
-class AirCon(StockItem):
-    def __init__(self, stockCode, quantity, price, airConBrand):
-        self.__airConBrand = airConBrand
+class AirFreshener(StockItem):
+    def __init__(self, stockCode, quantity, price, airFreshenerBrand):
+        self.__airFreshenerBrand = airFreshenerBrand
         super().__init__(stockCode, quantity, price)
 
     def getStockName(self):
-        return "Air Conditioning"
+        return "Air Freshener"
 
     def getStockDescription(self):
-        return "In car air conditioning replacements"
+        return "Minty fresh!"
 
     def __str__(self):
-        return super().__str__() +"Brand: " + self.__airConBrand + "\n"
+        return super().__str__() +"Brand: " + self.__airFreshenerBrand + "\n"
 
-class Windshields(StockItem):
-    def __init__(self, stockCode, quantity, price, windshieldBrand):
-        self.__windshieldBrand = windshieldBrand
+class HandsFree(StockItem):
+    def __init__(self, stockCode, quantity, price, handsFreeBrand):
+        self.__handsFreeBrand = handsFreeBrand
         super().__init__(stockCode, quantity, price)
 
     def getStockName(self):
-        return "Windshield"
+        return "Hands Free"
 
     def getStockDescription(self):
-        return "Replacement glass"
+        return "Look ma no hands!"
 
     def __str__(self):
-        return super().__str__() +"Brand: " + self.__windshieldBrand + "\n"
+        return super().__str__() +"Brand: " + self.__handsFreeBrand + "\n"
 
-print("Creating a stock with 10 units Navigation system, price 99.99 each, item code NS101, and brand TomTom")
-nav = NavSys("NS101", 10, 99.99, "TomTom")
-print(nav)
+runProgram = True   
+while runProgram: 
+    # Creating instances of the sub classes
+    navsys = NavSys(99.99, 10, "NS101", "TomTom")
+    speaker = Speaker(29.99, 50, "TS670", "Pioneer")
+    airFreshener = AirFreshener(1.50, 200, "AF202", "Little Trees")
+    handsFree = HandsFree(59.99, 25, "HF100", "Scosche")
 
-nav.increaseStock(10)
-print(nav)
+    userInput = input("Would you like to run the program again? (Yes / No)?: ")
 
-nav.sellStock(2)
-print(nav)
+    if userInput.upper() == "NO":
+        runProgram = False
+    
+    elif userInput.upper() == "YES":
+        print ("wwwww")
 
-nav.setPrice(100.99)
-print(nav)
+# print("Creating a stock with 10 units Navigation system, price 99.99 each, item code NS101, and brand TomTom")
+# nav = NavSys("NS101", 10, 99.99, "TomTom")
+# print(nav)
 
-nav.increaseStock(0)
+# nav.increaseStock(10)
+# print(nav)
+
+# nav.sellStock(2)
+# print(nav)
+
+# nav.setPrice(100.99)
+# print(nav)
+
+# nav.increaseStock(0)
 
 
 
