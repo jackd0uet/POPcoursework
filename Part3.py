@@ -37,21 +37,26 @@ class StockItem():
         return "Unknown stock description."
 
     def increaseStock(self,value):
+        global noError
         if value < 1:
-            print("ERROR: Value entered is too low, please try again with a value of one or higher.")
+            print("ERROR: Value entered is too low, please try again with a value of one or higher!\n")
+            noError = False
         if self.__quantity + value > 100:
-            print("ERROR: Cannot have stock over 100 for this item.")
+            print("ERROR: Cannot have stock over 100 for this item!\n")
+            noError = False
         else:
             self.__quantity = self.__quantity + value
 
     def sellStock(self,value):
+        global noError
         if value < 1:
-            print("ERROR: Cannot sell less than one of an item.")
-        if value <= self.__quantity:
-            self.__quantity = self.__quantity - value
-            return "True"
+            print("ERROR: Cannot sell less than one of an item!\n")
+            noError = False
+        elif value > self.__quantity:
+            print("ERROR: Cannot sell more stock than is available!\n")
+            noError = False
         else:
-            return "False"
+            self.__quantity = self.__quantity - value
 
     def getVAT(self):
         return "17.5"
@@ -121,37 +126,81 @@ class HandsFree(StockItem):
     def __str__(self):
         return super().__str__() +"Brand: " + self.__handsFreeBrand + "\n"
 
-runProgram = True   
-while runProgram: 
-    # Creating instances of the sub classes
-    navsys = NavSys(99.99, 10, "NS101", "TomTom")
-    speaker = Speaker(29.99, 50, "TS670", "Pioneer")
-    airFreshener = AirFreshener(1.50, 200, "AF202", "Little Trees")
-    handsFree = HandsFree(59.99, 25, "HF100", "Scosche")
+# Creating instances of the sub classes
+navsys = NavSys("NS101", 10, 99.99, "TomTom")
+speaker = Speaker("TS670",  50, 29.99, "Pioneer")
+airFreshener = AirFreshener("AF202", 200, 1.50, "Little Trees")
+handsFree = HandsFree("HF100", 25, 59.99, "Scosche")
 
+runProgram = True 
+
+itemsInStock = [navsys, speaker, airFreshener, handsFree]
+
+while runProgram: 
+
+    for stockitem in (navsys, speaker, airFreshener, handsFree):
+        print(stockitem)
+
+    secondLoop = True
+    while secondLoop:  
+        stockItemInput = int(input("Which stock item would you like to interact with? (1,2,3,4): "))
+
+        if stockItemInput <= 4:
+            break
+        else:
+            print("This is not a valid option!")
+            continue 
+
+    stockItemInput -= 1
+
+    print(itemsInStock[stockItemInput])
+
+    print("MENU")
+    print("[1] Set Quantity")
+    print("[2] Set Price")
+    print("[3] Increase Stock")
+    print("[4] Sell Stock")
+    
+
+    thirdLoop = True
+    while thirdLoop:
+        userActionInput = int(input("What would you like to do to this stockitem?: "))
+
+        if userActionInput == 1:
+            newQuantity = int(input("What would you like to set the quantity to?: "))
+            itemsInStock[stockItemInput].setQuantity(newQuantity)
+            break
+
+        elif userActionInput == 2:
+            newPrice = int(input("What would you like to set the new price as?: "))
+            itemsInStock[stockItemInput].setPrice(newPrice)
+            break
+
+        elif userActionInput == 3:
+            userIncreaseStock = int(input("How much would you like to increase the stock by?: "))
+            itemsInStock[stockItemInput].increaseStock(userIncreaseStock)
+            break
+
+        elif userActionInput == 4:
+            userSellStock = int(input("How much stock would you like to sell?: "))
+            itemsInStock[stockItemInput].sellStock(userSellStock)
+            break
+
+        else:
+            print("This is not a valid option!")
+            continue
+
+    if noError == True:
+        print("Here is the updated stock item!")
+        print(itemsInStock[stockItemInput])
+    
     userInput = input("Would you like to run the program again? (Yes / No)?: ")
 
     if userInput.upper() == "NO":
         runProgram = False
     
     elif userInput.upper() == "YES":
-        print ("wwwww")
-
-# print("Creating a stock with 10 units Navigation system, price 99.99 each, item code NS101, and brand TomTom")
-# nav = NavSys("NS101", 10, 99.99, "TomTom")
-# print(nav)
-
-# nav.increaseStock(10)
-# print(nav)
-
-# nav.sellStock(2)
-# print(nav)
-
-# nav.setPrice(100.99)
-# print(nav)
-
-# nav.increaseStock(0)
-
+        continue
 
 
 
