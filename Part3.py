@@ -44,46 +44,32 @@ class StockItem():
 
     # Define a function for calculating the price of the object with the VAT rate that has been entered above.
     def getPriceWithVAT(self):
-        x = self.__price + (0.175 * self.__price)
-        x = round(x, 2)
-        return x
+        priceWithVAT = self.__price + (0.175 * self.__price)
+        priceWithVAT = round(priceWithVAT, 2)
+        return priceWithVAT
 
     # Define function for increasing the amount of stock for an individual object of the class.
-
     def increaseStock(self, stock):
-        # Create a global noError variable for use later in the program for better user experience.
-        global noError
         # Use if statements to check whether the value entered is valid and print an error if it is not.
         if stock < 1:
             print(
                 "ERROR: Value entered is too low, please try again with a value of one or higher!\n")
-            # Set noError to false if the value entered is invalid.
-            noError = False
 
         elif self.__quantity + stock > 100:
             print("ERROR: Cannot have stock over 100 for this item!\n")
-            # Set noError to false if the value entered is invalid.
-            noError = False
 
         # Otherwise set the quantity to the original quantity plus the user's entered value.
         else:
             self.__quantity = self.__quantity + stock
 
     # Define function for selling stock for an individual object of the class.
-
     def sellStock(self, stock):
-        # Again define the global variable so that it can be accessed from outside this function creation.
-        global noError
         # Use if statements to check whether the value entered is valid and print an error if it is not.
         if stock < 1:
             print("ERROR: Cannot sell less than one of an item!\n")
-            # Set noError to false if the value entered is invalid.
-            noError = False
 
         elif stock > self.__quantity:
             print("ERROR: Cannot sell more stock than is available!\n")
-            # Set noError to false if the value entered is invalid.
-            noError = False
 
         # Otherwise set the quantity of the object to the original quantity minus the user's entered value.
         else:
@@ -91,7 +77,7 @@ class StockItem():
 
     # Define string method so when the print function is called on an object of this class a formatted string will be printed.
     def __str__(self):
-        return "\nPrinting item stock information: " "\nStock Category: " + self.stockCategory + "\nStock Type: " + self.getStockName() + "\nDescription: " + self.getStockDescription() + "\nStockCode: " + str(self.getStockCode()) + "\nPriceWithoutVat: " + str(self.getPriceNoVAT()) + "\nPriceWithVat: " + str(self.getPriceWithVAT()) + "\nTotal units in stock: " + str(self.getQuantity()) + "\n"
+        return "Printing item stock information: " "\nStock Category: " + self.stockCategory + "\nStock Type: " + self.getStockName() + "\nDescription: " + self.getStockDescription() + "\nStockCode: " + str(self.getStockCode()) + "\nPriceWithoutVat: " + str(self.getPriceNoVAT()) + "\nPriceWithVat: " + str(self.getPriceWithVAT()) + "\nTotal units in stock: " + str(self.getQuantity()) + "\n"
 
 
 # Define a new class that inherits from the StockItem parent class.
@@ -227,8 +213,6 @@ def main():
         functionLoop = True
         # While loop for picking option from printed menu.
         while functionLoop:
-            # Set noError to true in case it is set to false by an incorrect increase or sell of stock.
-            noError = True
             # Ask user what they would like to do and capture their input.
             userActionInput = int(
                 input("What would you like to do to this stockitem?: "))
@@ -269,10 +253,8 @@ def main():
                 print("ERROR: This is not a valid option!")
                 continue
 
-        # If there has been no error in the user's query print the updated object.
-        if noError == True:
-            print("Here is the updated stock item!")
-            print(itemsInStock[stockItemInput])
+        # Print stock object properties.
+        print(itemsInStock[stockItemInput])
 
         # Variable for initialising while loop.
         askUser = True
