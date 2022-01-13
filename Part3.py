@@ -4,7 +4,6 @@
 
 
 # Create StockItem Class
-
 class StockItem():
 
     # Create class variable for default stock category.
@@ -183,11 +182,11 @@ def main():
     airFreshener = AirFreshener("AF202", 200, 1.50, "Little Trees")
     handsFree = HandsFree("HF100", 25, 59.99, "Scosche")
 
-    # Create a variable and set to true for use with a while loop.
-    runProgram = True
-
     # Create array to store created objects.
     itemsInStock = [navsys, speaker, airFreshener, handsFree]
+
+    # Create a variable and set to true for use with a while loop.
+    runProgram = True
 
     # While loop for user interface.
     while runProgram:
@@ -197,9 +196,9 @@ def main():
             print(stockitem)
 
         # Create a variable and set to true for use with a while loop.
-        secondLoop = True
+        userSelectionLoop = True
         # While loop to ask user which object they would like to interact with.
-        while secondLoop:
+        while userSelectionLoop:
             # Capture the input as integer in a variable.
             stockItemInput = int(
                 input("Which stock item would you like to interact with? : "))
@@ -224,10 +223,10 @@ def main():
         print("[3] Increase Stock")
         print("[4] Sell Stock")
 
-        # Variable for initialising another while loop.
-        thirdLoop = True
+        # Variable for initialising a while loop for the user menu.
+        functionLoop = True
         # While loop for picking option from printed menu.
-        while thirdLoop:
+        while functionLoop:
             # Set noError to true in case it is set to false by an incorrect increase or sell of stock.
             noError = True
             # Ask user what they would like to do and capture their input.
@@ -275,19 +274,24 @@ def main():
             print("Here is the updated stock item!")
             print(itemsInStock[stockItemInput])
 
-        # Ask the user if they would like to run the program again.
-        userInput = input(
-            "Would you like to run the program again? (Yes / No)?: ")
-
-        # Use .upper to capitalise the input.
-        userInput = userInput.upper()
-
+        # Variable for initialising while loop.
+        askUser = True
+        # While loop for asking the user if they would like to run the program again.
+        while askUser:
+            userInput = input(
+                "Would you like to run the program again? (Yes / No)?: ")
+            # Use .upper to capitalise the input.
+            userInput = userInput.upper()
         # If the user says no, break out of the loop.
-        if userInput == "NO":
-            break
+            if userInput == "NO":
+                runProgram = False
+                break
         # If the user says yes, carry on the loop.
-        elif userInput == "YES":
-            continue
+            elif userInput == "YES":
+                break
+            else:
+                print("ERROR: This is not a valid option!")
+                continue
 
 
 if __name__ == "__main__":
